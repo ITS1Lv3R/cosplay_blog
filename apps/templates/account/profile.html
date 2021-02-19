@@ -1,0 +1,20 @@
+{% extends "core/base.html" %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+<div id="main">
+    <div class="block">
+         <p><a href="{% url 'core:index' %}">Сайт</a> / Личный кабинет</p>
+
+        <p> Привет {{ user_profile.first_name }} !</p>
+        <h5>Вы можете изменить данные профиля:</h5>
+        <form action="." method="post" class="register_form">
+              {{ user_form.as_p }}
+              {% csrf_token %}
+              <p><input type="submit" value="Сохранить изменения"></p>
+        </form>
+        <a href="{% url 'password_change' %}"><input type="submit" value="Сменить пароль"></a>
+    </div>
+</div>
+{% endblock %}
