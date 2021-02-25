@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} Список моделей{% endblock %}
+
+{% block content %}
+<div id="main">
+    <div class="block">
+        <img src="{% thumbnail model.image 50x50 crop %}">
+        <br> {{ model.stars_count }} звезда
+        <br>
+        {{ response_message }} <br>
+        {% for collection in collections %}
+            {{ collection }}
+            <br>
+            {% for images in collection.images_in_collection %}
+                <img src="{% thumbnail images.image 50x50 crop %}">
+            {% endfor %}
+            <br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+

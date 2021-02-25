@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} Список моделей{% endblock %}
+
+{% block content %}
+<div id="main">
+    <div class="block">
+        {% for model in models %}
+            <a href="{% url 'core:model_profile' model.slug %}" >{{ model }}</a> <br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

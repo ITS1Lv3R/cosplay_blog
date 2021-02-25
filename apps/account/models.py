@@ -2,11 +2,6 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
-from easy_thumbnails.fields import ThumbnailerImageField
-
-
-def upload_path_image_company(instance, filename):
-    return 'images/company/{0}'.format(filename)
 
 
 class UserManager(BaseUserManager):
