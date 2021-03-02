@@ -1,12 +1,26 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load thumbnail %}
 
 {% block title %}Тестовый проект{% endblock %}
 
 {% block content %}
 <div id="main">
     <div class="block">
-        привет
+        {% for post in posts %}
+            {{ post }}
+            <br>
+            {{ post.description }}
+            <br>
+            {% for collection in post.collections.all %}
+                {{ collection }} <br>
+                {% for image in collection.images_in_collection %}
+                <a href="{% url 'core:image_view' image.slug %}">
+                    <img src="{% thumbnail image.image 150x150 crop %}"></a>
+                {% endfor %}
+                <br>
+            {% endfor %}
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

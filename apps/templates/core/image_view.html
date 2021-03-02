@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} {{ image }} {% endblock %}
+
+{% block content %}
+<div id="main">
+    <div class="block">
+            <img src="{% thumbnail image.image 500x500 crop %}">
+            <p>Описание: </p>
+            <p>{{ image.description }}</p>
+        {% for comment in image.comments.all %}
+            {{ comment.author.get_full_name }}: {{ comment }} <br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

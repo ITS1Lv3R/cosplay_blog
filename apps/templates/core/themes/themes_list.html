@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} Список всех тематик{% endblock %}
+
+{% block content %}
+<div id="main">
+    <div class="block">
+        {% for theme in themes %}
+           <a href="{% url 'core:collections_by_theme' theme.slug %}"> {{ theme.title }} </a> <br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

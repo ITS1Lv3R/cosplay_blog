@@ -2,15 +2,11 @@
 {% load static %}
 {% load thumbnail %}
 
-{% block title %} Список моделей{% endblock %}
+{% block title %} Список коллекций по теме {{ theme.title }} {% endblock %}
 
 {% block content %}
 <div id="main">
     <div class="block">
-        <p> {{ model.name }} </p>
-        <img src="{% thumbnail model.image 250x250 crop %}">
-        <br> {{ model.stars_count }} звезда
-        <br>
         {{ response_message }} <br>
         {% for collection in collections %}
             {{ collection }}
@@ -24,6 +20,4 @@
     </div>
 </div>
 {% endblock %}
-
-
 

@@ -29,6 +29,14 @@ h1, h2 {
     height:50px;
 }
 
+#header .header_main_tabs {
+    position:absolute;
+    font-size:20px;
+    top:10px;
+    left:20px;
+    text-align:left;
+}
+
 #header .header_login {
     position:absolute;
     font-size:20px;

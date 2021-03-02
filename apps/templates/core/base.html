@@ -13,8 +13,13 @@
 </head>
 <body>
     <div id="header">
-        <div class="header_login">
+
+        <div class="header_main_tabs">
+            <a href="{% url 'core:themes_list' %}">Рубрики</a>
             <a href="{% url 'core:models_list' %}">Список моделей</a>
+        </div>
+
+        <div class="header_login">
             {% if request.user.is_authenticated %}
               <a href="{% url 'profile' %}">Личный кабинет</a>
               <a href="{% url 'logout' %}">Выйти</a>

@@ -1,11 +1,15 @@
 import os
-
+import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = int(os.environ.get("DEBUG", default=0))
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env/.local_env'))
+
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = int(env("DEBUG", default=0))
+ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(" ")
+
 
 INSTALLED_APPS = [
     'apps.account',
@@ -15,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # packages
     'easy_thumbnails',
     # apps
     'apps.core',
@@ -42,6 +47,8 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -98,10 +105,8 @@ USE_TZ = True
 
 # static and media
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
-]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/',)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
