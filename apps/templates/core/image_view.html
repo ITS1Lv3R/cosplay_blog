@@ -11,8 +11,19 @@
             <p>Описание: </p>
             <p>{{ image.description }}</p>
         {% for comment in image.comments.all %}
-            {{ comment.author.get_full_name }}: {{ comment }} <br>
-        {% endfor %}
+            <text style="color:red">{{ comment.author.get_full_name }}</text>: {{ comment }} <br>
+        {% endfor %}<br><br>
+         {% if request.user.is_authenticated %}
+            <form action="{% url 'core:image_view' image.slug %}" method="post">
+                <textarea name="text" placeholder="Введите текст" required="True"></textarea><br>
+              {% csrf_token %}
+              <input type="submit" value="Добавить комментарий" >
+            </form>
+         {% else %}
+            <p>Для добавления комментария пожалуйста
+            <a href="{% url 'login' %}"> авторизуйстесь</a> на сайте
+            </p>
+         {% endif %}
     </div>
 </div>
 {% endblock %}

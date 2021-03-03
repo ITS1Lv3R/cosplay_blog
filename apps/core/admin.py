@@ -30,14 +30,14 @@ class CosplayBlogPostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
+@admin.register(ImageComment)
+class ImageCommentAdmin(admin.ModelAdmin):
     list_display = ['text', 'created', 'updated']
     list_filter = ['text']
 
 
-@admin.register(CosplayTheme)
-class CosplayThemeAdmin(admin.ModelAdmin):
+@admin.register(CosplayRubric)
+class CosplayRubricAdmin(admin.ModelAdmin):
     list_display = ['title']
     list_filter = ['title']
     prepopulated_fields = {'slug': ('title',)}

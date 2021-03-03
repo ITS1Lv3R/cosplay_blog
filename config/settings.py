@@ -1,15 +1,15 @@
 import os
 import environ
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env/.local_env'))
 
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = int(env("DEBUG", default=0))
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS").split(" ")
-
 
 INSTALLED_APPS = [
     'apps.account',
@@ -106,7 +106,10 @@ USE_TZ = True
 # static and media
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/',)
+STATIC_ROOT = os.path.join(BASE_DIR, 'var/www/static/', )
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"), ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

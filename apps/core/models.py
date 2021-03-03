@@ -34,15 +34,15 @@ class Models(models.Model):
         return collections
 
 
-class CosplayTheme(models.Model):
+class CosplayRubric(models.Model):
     """ Темы коллекций изображений"""
     title = models.CharField('Наименование темы', max_length=50, blank=True)
     slug = models.SlugField(max_length=200, blank=True)
 
     class Meta:
         ordering = ('id',)
-        verbose_name = "Тема коллекции"
-        verbose_name_plural = "Темы коллекций"
+        verbose_name = "Рубрика"
+        verbose_name_plural = "Рубрики"
 
     def __str__(self):
         return str(self.title)
@@ -50,8 +50,8 @@ class CosplayTheme(models.Model):
 
 class Image_Collection(models.Model):
     """ Коллекция изображений"""
-    model = models.ForeignKey(Models, related_name='collections', on_delete=models.CASCADE)
-    theme = models.ForeignKey(CosplayTheme, related_name='theme_collections', on_delete=models.CASCADE)
+    model = models.ForeignKey(Models, related_name='model_collections', on_delete=models.CASCADE)
+    rubric = models.ForeignKey(CosplayRubric, related_name='collections', on_delete=models.CASCADE)
     title = models.CharField('Наименование коллекции', max_length=50, blank=True)
     slug = models.SlugField(max_length=200, blank=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
@@ -104,7 +104,7 @@ class CosplayBlogPost(models.Model):
         return str(self.title)
 
 
-class Comment(models.Model):
+class ImageComment(models.Model):
     """ Комментарии к изображению """
     text = models.CharField('Текст комментария', max_length=500, blank=True)
     image = models.ForeignKey(Image, related_name='comments', on_delete=models.CASCADE)

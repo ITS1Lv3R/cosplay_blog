@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} Список всех рубрик {% endblock %}
+
+{% block content %}
+<div id="main">
+    <div class="block">
+        {% for rubric in rubrics %}
+           <a href="{% url 'core:collections_by_rubric' rubric.slug %}"> {{ rubric.title }} </a> <br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
