@@ -60,6 +60,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         """ Возвращает сокращенное имя пользователя"""
         return self.first_name
-
-
-

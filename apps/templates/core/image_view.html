@@ -7,12 +7,20 @@
 {% block content %}
 <div id="main">
     <div class="block">
-            <img src="{% thumbnail image.image 500x500 crop %}">
-            <p>Описание: </p>
-            <p>{{ image.description }}</p>
-        {% for comment in image.comments.all %}
-            <text style="color:red">{{ comment.author.get_full_name }}</text>: {{ comment }} <br>
-        {% endfor %}<br><br>
+        <img src="{% thumbnail image.image 500x500 crop %}"><br><br>
+<!-- Лайки для изображений-->
+        <input type="button" id="like" name="{{ image.slug }}" value="&#10084;" />
+        <text id="total_likes">{{ image.total_likes }}</text>
+<!--Комментарии-->
+        <br><br>
+        {% if image.comments.all %}
+            <p>Комментарии:</p>
+            {% for comment in image.comments.all %}
+                <text style="color:red">{{ comment.author.get_full_name }}</text>: {{ comment }} <br>
+            {% endfor %}<br><br>
+        {% else %}
+            <p> У данного изображения еще нет комментариев</p>
+        {% endif %}
          {% if request.user.is_authenticated %}
             <form action="{% url 'core:image_view' image.slug %}" method="post">
                 <textarea name="text" placeholder="Введите текст" required="True"></textarea><br>
@@ -26,4 +34,19 @@
          {% endif %}
     </div>
 </div>
+
+<script>
+$('#like').click(function(){
+      $.ajax({
+           type: "POST",
+           url: "{% url 'core:like' %}",
+           data: {'slug': $(this).attr('name'), 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+           dataType: "json",
+            success: function(response) {
+              document.getElementById("total_likes").innerHTML = response.likes_count;
+            },
+          });
+    })
+</script>
 {% endblock %}
+

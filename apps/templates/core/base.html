@@ -1,22 +1,35 @@
 {% load static %}
 {% autoescape off %}
-
+{% load thumbnail %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    Подключаем css-->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+<!--    Подключаем jquery-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <title>{% block title %}{% endblock %}</title>
 
 </head>
 <body>
     <div id="header">
+        <div class="header_logo">
+            <a href="/">Логотип</a>
+        </div>
+
+        <div class="search">
+           <form action="{% url 'core:search' %}" method="get">
+               <input name="q" type="text" placeholder="Поиск" >
+           </form>
+        </div>
 
         <div class="header_main_tabs">
-            <a href="{% url 'core:rubrics_list' %}">Рубрики</a>
-            <a href="{% url 'core:models_list' %}">Список моделей</a>
+            <a href="{% url 'core:rubrics_list' %}">Рубрики </a>|
+            <a href="{% url 'core:models_list' %}">Список моделей </a>|
+            <a href="{% url 'core:collection_list' %}">Топ 10 коллекций</a>
         </div>
 
         <div class="header_login">

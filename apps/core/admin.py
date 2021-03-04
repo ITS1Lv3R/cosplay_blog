@@ -4,23 +4,32 @@ from .models import *
 
 @admin.register(Models)
 class ModelsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'image', 'stars_count']
-    list_filter = ['stars_count']
+    list_display = ['name', 'image']
+    list_filter = ['name', ]
     prepopulated_fields = {'slug': ('name',)}
+    exclude = ['stars']
+
+
+class ImageInLine(admin.StackedInline):
+    model = Image
+    raw_id_fields = ("collection",)
+    exclude = ['likes']
 
 
 @admin.register(Image_Collection)
 class Image_CollectionAdmin(admin.ModelAdmin):
-    list_display = ['title', 'model']
+    list_display = ['title', 'model', 'description']
     list_filter = ['model', 'title']
     prepopulated_fields = {'slug': ('title',)}
+    inlines = [ImageInLine, ]
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'collection', 'image', 'description']
+    list_display = ['title', 'collection', 'image', ]
     list_filter = ['collection', 'title']
     prepopulated_fields = {'slug': ('title',)}
+    exclude = ['likes']
 
 
 @admin.register(CosplayBlogPost)
@@ -41,7 +50,3 @@ class CosplayRubricAdmin(admin.ModelAdmin):
     list_display = ['title']
     list_filter = ['title']
     prepopulated_fields = {'slug': ('title',)}
-
-
-
-

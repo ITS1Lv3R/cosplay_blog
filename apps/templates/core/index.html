@@ -13,9 +13,11 @@
             {{ post.description }}
             <br>
             {% for collection in post.collections.all %}
-                {{ collection }} <br>
+                {{ collection.description }}<br>
+                <a href="{{ collection.model.get_absolute_url }}">#{{ collection.model }} </a>
+                <a href="{{ collection.rubric.get_absolute_url }}">#{{ collection.rubric }}</a><br>
                 {% for image in collection.images_in_collection %}
-                <a href="{% url 'core:image_view' image.slug %}">
+                    <a href="{% url 'core:image_view' image.slug %}">
                     <img src="{% thumbnail image.image 150x150 crop %}"></a>
                 {% endfor %}
                 <br>

@@ -5,7 +5,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from apps.core.forms import AddCommentForm
-from apps.core.models import Models, CosplayBlogPost, Image, CosplayRubric
+from apps.core.models import Models, CosplayBlogPost, Image, CosplayRubric, Image_Collection
+from django.db.models import Q
 
 
 class IndexView(ListView):
@@ -20,6 +21,13 @@ class ModelListView(ListView):
     queryset = Models.objects.all()
     template_name = 'core/models/models_list.html'
     context_object_name = 'models'
+
+
+class CollectionView(ListView):
+    """ Список первых 10 коллекций"""
+    queryset = Image_Collection.objects.filter()[:10]
+    template_name = 'core/collection_list.html'
+    context_object_name = 'collections'
 
 
 def model_profile(request, slug):
@@ -84,3 +92,9 @@ def page_not_found_500(request):
     status = 500
     context = locals()
     return render(request, template, context)
+
+
+def search(request):
+    query = request.GET.get('q')
+    object_list = Image_Collection.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
+    return render(request, 'core/search.html', {'object_list': object_list})

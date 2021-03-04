@@ -8,21 +8,38 @@
 <div id="main">
     <div class="block">
         <p> {{ model.name }} </p>
-        <img src="{% thumbnail model.image 250x250 crop %}">
-        <br> {{ model.stars_count }} звезда
+        <img src="{% thumbnail model.image 250x250 crop %}"> <br><br>
+        <!-- Количество звёзд у моделей-->
+        <input type="button" id="stars" name="{{ model.slug }}" value="&#11088;" />
+        <text id="total_stars">{{ model.total_stars}}</text>
+
         <br>
         {{ response_message }} <br>
         {% for collection in collections %}
             {{ collection }}
             <br>
             {% for image in collection.images_in_collection %}
-                <p><a href="{% url 'core:image_view' image.slug %}">
+               <a href="{% url 'core:image_view' image.slug %}">
                     <img src="{% thumbnail image.image 50x50 crop %}"></a>
             {% endfor %}
             <br>
         {% endfor %}
     </div>
 </div>
+
+<script>
+$('#stars').click(function(){
+      $.ajax({
+           type: "POST",
+           url: "{% url 'core:stars' %}",
+           data: {'slug': $(this).attr('name'), 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+           dataType: "json",
+            success: function(response) {
+              document.getElementById("total_stars").innerHTML = response.stars_count;
+            },
+          });
+    })
+</script>
 {% endblock %}
 
 

@@ -85,7 +85,8 @@ def profile(request):
     else:
         user_form = UserProfileForm(instance=request.user)
 
-    user_profile = User.objects.get(email=request.user.email)
+    user = request.user
+    liked_images = user.likes.all()
 
     context = locals()
     template = 'account/profile.html'

@@ -12,7 +12,7 @@
             {{ collection }}
             <br>
             {% for image in collection.images_in_collection %}
-                <p><a href="{% url 'core:image_view' image.slug %}">
+                <a href="{% url 'core:image_view' image.slug %}">
                     <img src="{% thumbnail image.image 50x50 crop %}"></a>
             {% endfor %}
             <br>

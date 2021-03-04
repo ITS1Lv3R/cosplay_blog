@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-
+{% load thumbnail %}
 {% block title %}Профиль пользователя{% endblock %}
 
 {% block content %}
@@ -7,7 +7,13 @@
     <div class="block">
          <p><a href="{% url 'core:index' %}">Сайт</a> / Личный кабинет</p>
 
-        <p> Привет {{ user_profile.first_name }} !</p>
+        <p> Привет {{ user.first_name }} !</p>
+        <h5>Фотографии, которые тебе понравились:</h5>
+        {% for image in liked_images %}
+            <a href="{% url 'core:image_view' image.slug %}">
+            <img src="{% thumbnail image.image 150x150 crop %}"></a>
+        {% endfor %}
+        <br><br>
         <h5>Вы можете изменить данные профиля:</h5>
         <form action="." method="post" class="register_form">
               {{ user_form.as_p }}

@@ -29,11 +29,24 @@ h1, h2 {
     height:50px;
 }
 
-#header .header_main_tabs {
-    position:absolute;
+#header .header_logo {
+  position:absolute;
     font-size:20px;
     top:10px;
     left:20px;
+    text-align:left;
+}
+
+#header .search {
+    position:absolute;
+    top:10px;
+    left:150px;
+}
+
+#header .header_main_tabs {
+    position:absolute;
+    font-size:20px;
+    left: 31%;
     text-align:left;
 }
 
@@ -50,9 +63,16 @@ h1, h2 {
     font-size:15px;
     top:10px;
     right:710px;
-
 }
 
+#header a {
+    color:grey;
+}
+#header a:hover {
+    color:silver;
+    cursor: pointer;
+    text-decoration:none;
+}
 /* messages */
 
 
@@ -112,3 +132,4 @@ ul.messages li a.close {
   /* margin-top = - height / 2 */
   margin-top: -125px;
 }
+
