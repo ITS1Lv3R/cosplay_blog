@@ -4,80 +4,68 @@ from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from apps.core.forms import AddCommentForm
-from apps.core.models import Models, CosplayBlogPost, Image, CosplayRubric, Image_Collection
+from apps.core.models import Models, CosplayPost, Image, CosplayRubric
 from django.db.models import Q
 
 
 class IndexView(ListView):
-    """ Вью для главной страницы"""
-    queryset = CosplayBlogPost.objects.all()
+    """ Вью для главной страницы, все посты"""
+    queryset = CosplayPost.objects.all()
     template_name = 'core/index.html'
     context_object_name = 'posts'
+    paginate_by = 6
+
+
+class PostDetailView(DetailView):
+    """ Детальная вью для изображений"""
+    model = CosplayPost
+    template_name = 'core/post/post_view.html'
+    context_object_name = 'post'
+
+
+class TopPostsListView(ListView):
+    """ Список первых 10 постов"""
+    queryset = CosplayPost.objects.filter()[:10]
+    template_name = 'core/post/top_posts_list.html'
+    context_object_name = 'posts'
+    paginate_by = 6
 
 
 class ModelListView(ListView):
     """ Список моделей """
-    queryset = Models.objects.all()
+    queryset = Models.objects.all().order_by('name')
     template_name = 'core/models/models_list.html'
     context_object_name = 'models'
+    paginate_by = 6
 
 
-class CollectionView(ListView):
-    """ Список первых 10 коллекций"""
-    queryset = Image_Collection.objects.filter()[:10]
-    template_name = 'core/collection_list.html'
-    context_object_name = 'collections'
+class ModelDetailView(DetailView):
+    """ Список моделей """
+    model = Models
+    template_name = 'core/models/model_profile.html'
+    context_object_name = 'model'
 
 
-def model_profile(request, slug):
-    """ Профиль выбранной модели"""
-    response_message = 'Все коллекции модели: '
-    model = Models.objects.get(slug=slug)
-    # достаём все коллеции у выбранной модели
-    collections = model.collections_by_model()
-    if not collections:
-        response_message = 'У данной модели нет коллекций'
-    context = locals()
-    return render(request, 'core/models/model_profile.html', context)
-
-
-def image_view(request, slug):
+class ImageDetailView(DetailView):
     """ Детальная вью для изображений"""
-    image = Image.objects.get(slug=slug)
-
-    if request.method == 'POST':
-        comment_form = AddCommentForm(request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.text = comment_form.cleaned_data['text']
-            new_comment.author = request.user
-            new_comment.image = image
-            new_comment.save()
-            messages.success(request, 'Сообщение добавлено')
-    else:
-        comment_form = AddCommentForm()
-
-    return render(request, 'core/image_view.html', {'comment_form': comment_form,
-                                                    'image': image})
+    model = Image
+    template_name = 'core/image_view.html'
+    context_object_name = 'image'
 
 
-class RubricView(ListView):
+class RubricList(ListView):
     """ Список всех тематик"""
-    queryset = CosplayRubric.objects.all()
+    queryset = CosplayRubric.objects.all().order_by('title')
     template_name = 'core/rubric/rubric_list.html'
     context_object_name = 'rubrics'
+    paginate_by = 6
 
 
-def collections_by_rubric(request, slug):
-    """ Страница с коллекциями по темам"""
-    rubric = CosplayRubric.objects.get(slug=slug)
-    collections = rubric.collections.all()
-    response_message = 'Все коллекции по тематике {}:'.format(rubric.title)
-    if not collections:
-        response_message = 'В данной тематике еще нет размещенных коллекций :('
-    context = locals()
-    return render(request, 'core/rubric/collections_by_rubric.html', context)
+class RubricDetailView(DetailView):
+    """ отображает посты по выбранной рубрике"""
+    model = CosplayRubric
+    template_name = 'core/rubric/posts_by_rubric.html'
+    context_object_name = 'rubric'
 
 
 def page_not_found(request, exception):
@@ -95,6 +83,11 @@ def page_not_found_500(request):
 
 
 def search(request):
+    """ функция поиска постов"""
     query = request.GET.get('q')
-    object_list = Image_Collection.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
-    return render(request, 'core/search.html', {'object_list': object_list})
+    # изменяем регистр первого символа запроса. проанализировать надо будет
+    query = query.title()
+    posts = CosplayPost.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
+    return render(request, 'core/search.html', {'posts': posts,
+                                                'query': query})
+

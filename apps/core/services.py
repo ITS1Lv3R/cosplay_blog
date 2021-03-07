@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 import json
-from .models import Image, Models, Image_Collection
+from .models import Image, Models
 
 
 @login_required
@@ -10,8 +10,8 @@ from .models import Image, Models, Image_Collection
 def like(request):
     if request.method == 'POST':
         user = request.user
-        slug = request.POST.get('slug', None)
-        image = Image.objects.get(slug=slug)
+        pk = request.POST.get('pk', None)
+        image = Image.objects.get(pk=pk)
 
         if image.likes.filter(id=user.id).exists():
             # user has already liked this image
@@ -42,6 +42,3 @@ def stars(request):
     context = {'stars_count': model.total_stars}
 
     return HttpResponse(json.dumps(context), content_type='application/json')
-
-
-

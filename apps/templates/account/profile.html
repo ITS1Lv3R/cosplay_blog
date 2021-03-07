@@ -4,23 +4,74 @@
 
 {% block content %}
 <div id="main">
-    <div class="block">
-         <p><a href="{% url 'core:index' %}">Сайт</a> / Личный кабинет</p>
+     <p><a href="{% url 'core:index' %}">Главное меню</a> / Личный кабинет</p>
 
-        <p> Привет {{ user.first_name }} !</p>
+    <p> Привет {{ user.first_name }} !</p>
+    {% if liked_images.count >= 2 %}
         <h5>Фотографии, которые тебе понравились:</h5>
-        {% for image in liked_images %}
-            <a href="{% url 'core:image_view' image.slug %}">
-            <img src="{% thumbnail image.image 150x150 crop %}"></a>
-        {% endfor %}
-        <br><br>
-        <h5>Вы можете изменить данные профиля:</h5>
-        <form action="." method="post" class="register_form">
-              {{ user_form.as_p }}
-              {% csrf_token %}
-              <p><input type="submit" value="Сохранить изменения"></p>
-        </form>
-        <a href="{% url 'password_change' %}"><input type="submit" value="Сменить пароль"></a>
-    </div>
+        <div id="slider">
+          <a href="#" class="control_next">></a>
+          <a href="#" class="control_prev"><</a>
+          <ul>
+            {% for image in liked_images %}
+                <li><a href="{{ image.get_absolute_url }}">
+                <img src="{% thumbnail image.image 500x700 crop %}"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
+    {% else %}
+        <p> У тебя еще нет любимых фотографий. Лайкни фото, чтобы в личном кабинете отображались любимые фотографии</p>
+    {% endif %}
+    <br><br>
+    <h5>Вы можете изменить данные профиля:</h5>
+    <form action="." method="post" class="register_form">
+          {{ user_form.as_p }}
+          {% csrf_token %}
+          <p><input type="submit" value="Сохранить изменения"></p>
+    </form>
+    <a href="{% url 'password_change' %}"><input type="submit" value="Сменить пароль"></a>
 </div>
+
+<script>
+jQuery(document).ready(function ($) {
+
+  var slideCount = $('#slider ul li').length;
+  var slideWidth = $('#slider ul li').width();
+  var slideHeight = $('#slider ul li').height();
+  var sliderUlWidth = slideCount * slideWidth;
+
+  $('#slider').css({ width: slideWidth, height: slideHeight });
+
+  $('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+
+    $('#slider ul li:last-child').prependTo('#slider ul');
+
+    function moveLeft() {
+        $('#slider ul').animate({
+            left: + slideWidth
+        }, 200, function () {
+            $('#slider ul li:last-child').prependTo('#slider ul');
+            $('#slider ul').css('left', '');
+        });
+    };
+
+    function moveRight() {
+        $('#slider ul').animate({
+            left: - slideWidth
+        }, 200, function () {
+            $('#slider ul li:first-child').appendTo('#slider ul');
+            $('#slider ul').css('left', '');
+        });
+    };
+
+    $('a.control_prev').click(function () {
+        moveLeft();
+    });
+
+    $('a.control_next').click(function () {
+        moveRight();
+    });
+
+});
+</script>
 {% endblock %}

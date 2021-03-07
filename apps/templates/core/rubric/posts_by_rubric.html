@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %} Список коллекций по рубрике {{ rubric.title }} {% endblock %}
+
+{% block content %}
+<div id="main">
+    {% if rubric.posts_by_rubric %}
+        {% for post in rubric.posts_by_rubric %}
+        <div class="post">
+            <b><a style="color:black" href="{{ post.get_absolute_url }}">{{ post.title }}
+                <img src="{% thumbnail post.image_for_title.image 300x300 crop %}"></a></b>
+
+            <a href="{{ post.model.get_absolute_url }}">#{{ post.model }} </a>
+            <a href="{{ post.rubric.get_absolute_url }}">#{{ post.rubric }}</a>
+            <br>
+            {{ post.created }} <br>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>В рубрике {{ rubric.title }} еще нет коллекций =(</p>
+    {% endif %}
+
+</div>
+{% endblock %}
+

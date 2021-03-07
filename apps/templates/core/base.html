@@ -17,19 +17,19 @@
 <body>
     <div id="header">
         <div class="header_logo">
-            <a href="/">Логотип</a>
+            <a href="/">𝓑𝓮𝓼𝓽 𝓒𝓸𝓼𝓹𝓵𝓪𝔂</a>
         </div>
 
         <div class="search">
            <form action="{% url 'core:search' %}" method="get">
-               <input name="q" type="text" placeholder="Поиск" >
+               <input name="q" type="text" placeholder="Поиск.." >
            </form>
         </div>
 
         <div class="header_main_tabs">
             <a href="{% url 'core:rubrics_list' %}">Рубрики </a>|
             <a href="{% url 'core:models_list' %}">Список моделей </a>|
-            <a href="{% url 'core:collection_list' %}">Топ 10 коллекций</a>
+            <a href="{% url 'core:top_posts_list' %}">Топ 10 коллекций</a>
         </div>
 
         <div class="header_login">
@@ -56,6 +56,18 @@
     </div>
 
 {% block content %}{% endblock %}
+
+<div class="channels">
+    <p>Наши каналы:</p>
+    <div class="channels-logo">
+        <a href="https://zen.yandex.ru/id/5e2859a673034b00ac152c7d">
+        <img src="{% static 'img/yandex.png' %}"></a><br>
+
+        <a href="https://t.me/cosplay_best">
+        <img src="{% static 'img/telegram.png' %}"></a><br>
+    </div>
+</div>
+
 </body>
 </html>
 {% endautoescape %}

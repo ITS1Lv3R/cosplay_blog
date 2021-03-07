@@ -2,29 +2,29 @@
 {% load static %}
 {% load thumbnail %}
 
-{% block title %} Список моделей{% endblock %}
+{% block title %} {{ model.name }}{% endblock %}
 
 {% block content %}
 <div id="main">
-    <div class="block">
-        <p> {{ model.name }} </p>
-        <img src="{% thumbnail model.image 250x250 crop %}"> <br><br>
-        <!-- Количество звёзд у моделей-->
-        <input type="button" id="stars" name="{{ model.slug }}" value="&#11088;" />
-        <text id="total_stars">{{ model.total_stars}}</text>
+    <p><a href="{% url 'core:index' %}">Главное меню</a> / <a href="{% url 'core:models_list' %}">
+        Список моделей </a> / {{ model.name }}</p>
+    <p> {{ model.name }} </p>
+    <img src="{% thumbnail model.image 300x300 crop %}"> <br><br>
+    <!-- Количество звёзд у моделей-->
+    <input type="button" id="stars" name="{{ model.slug }}" value="&#11088;" />
+    <text id="total_stars">{{ model.total_stars}}</text><br><br>
 
-        <br>
-        {{ response_message }} <br>
-        {% for collection in collections %}
-            {{ collection }}
+    {% for post in model.posts_by_model %}
+        <div class="post">
+            <b><a style="color:black" href="{{ post.get_absolute_url }}">{{ post.title }}
+                <img src="{% thumbnail post.image_for_title.image 300x300 crop %}"></a></b>
+
+            <a href="{{ post.model.get_absolute_url }}">#{{ post.model }} </a>
+            <a href="{{ post.rubric.get_absolute_url }}">#{{ post.rubric }}</a>
             <br>
-            {% for image in collection.images_in_collection %}
-               <a href="{% url 'core:image_view' image.slug %}">
-                    <img src="{% thumbnail image.image 50x50 crop %}"></a>
-            {% endfor %}
-            <br>
-        {% endfor %}
-    </div>
+            {{ post.created }} <br>
+        </div>
+    {% endfor %}
 </div>
 
 <script>

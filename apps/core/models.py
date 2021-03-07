@@ -6,10 +6,11 @@ from apps.account.models import User
 from config import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
+from django.core.validators import RegexValidator, MinLengthValidator
 
 
 def upload_path_image(instance, filename):
-    return 'images/{0}/{1}/{2}'.format(instance.collection.model, instance.collection.title, filename)
+    return 'images/{0}/{1}/{2}'.format(instance.post.model, instance.rubric, filename)
 
 
 def upload_path_model_photo(instance, filename):
@@ -20,7 +21,7 @@ class Models(models.Model):
     """ Наши модели"""
     name = models.CharField('Имя', max_length=30, blank=True)
     image = ThumbnailerImageField('Фото', upload_to=upload_path_model_photo, blank=True)
-    stars = models.ManyToManyField(User, related_name='stars')
+    stars = models.ManyToManyField(User, related_name='models')
     slug = models.SlugField(max_length=200, blank=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
 
@@ -32,9 +33,9 @@ class Models(models.Model):
     def __str__(self):
         return str(self.name)
 
-    def collections_by_model(self):
-        collections = Image_Collection.objects.filter(model=self)
-        return collections
+    def posts_by_model(self):
+        posts = CosplayPost.objects.filter(model=self)
+        return posts
 
     @property
     def total_stars(self):
@@ -58,59 +59,26 @@ class CosplayRubric(models.Model):
         return str(self.title)
 
     def get_absolute_url(self):
-        return reverse('core:collections_by_rubric', args=[self.slug])
+        return reverse('core:posts_by_rubric', args=[self.slug])
+
+    def posts_by_rubric(self):
+        posts = CosplayPost.objects.filter(rubric=self)
+        return posts
+
+    def image_for_title(self):
+        image_for_title = Image.objects.filter(rubric=self, for_title=True).first()
+        return image_for_title
 
 
-class Image_Collection(models.Model):
-    """ Коллекция изображений"""
-    model = models.ForeignKey(Models, related_name='model_collections', on_delete=models.CASCADE)
-    rubric = models.ForeignKey(CosplayRubric, related_name='collections', on_delete=models.CASCADE)
-    title = models.CharField('Наименование коллекции', max_length=50, blank=True)
-    description = models.CharField('Описание коллекции', max_length=300, blank=True)
-    slug = models.SlugField(max_length=200, blank=True)
-    created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
-
-    class Meta:
-        ordering = ('id',)
-        verbose_name = "Коллекция"
-        verbose_name_plural = "Коллекции"
-
-    def __str__(self):
-        return str(self.title)
-
-    def images_in_collection(self):
-        images = Image.objects.filter(collection=self)
-        return images
-
-
-class Image(models.Model):
-    """ Изображение"""
-    collection = models.ForeignKey(Image_Collection, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(User, related_name='likes')
-    title = models.CharField('Наименование изображения', max_length=50, blank=True)
-    slug = models.SlugField(max_length=200, blank=True)
-    image = ThumbnailerImageField(upload_to=upload_path_image, blank=True, verbose_name='Изображение')
-    created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
-
-    class Meta:
-        ordering = ('id',)
-        verbose_name = "Изображение"
-        verbose_name_plural = "изображения"
-
-    def __str__(self):
-        return str(self.title)
-
-    @property
-    def total_likes(self):
-        return self.likes.count()
-
-
-class CosplayBlogPost(models.Model):
+class CosplayPost(models.Model):
     """ Посты в единственный блог"""
-    collections = models.ManyToManyField(Image_Collection)
-    title = models.CharField('Наименование поста', max_length=50, blank=True)
+    model = models.ForeignKey(Models, related_name='models', on_delete=models.CASCADE)
+    rubric = models.ForeignKey(CosplayRubric, related_name='posts', on_delete=models.CASCADE)
+    title = models.CharField('Наименование поста', max_length=70, blank=True,
+                             validators=[MinLengthValidator(45,
+                                                            message='Length has to be a minimum 45')])
     slug = models.SlugField(max_length=200, blank=True)
-    description = models.CharField('Описание', max_length=500, blank=True)
+    description = models.CharField('Описание', max_length=9999, blank=True)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
 
     class Meta:
@@ -121,21 +89,38 @@ class CosplayBlogPost(models.Model):
     def __str__(self):
         return str(self.title)
 
+    def images_in_post(self):
+        images = Image.objects.filter(post=self)
+        return images
 
-class ImageComment(models.Model):
-    """ Комментарии к изображению """
-    text = models.CharField('Текст комментария', max_length=500, blank=True)
-    image = models.ForeignKey(Image, related_name='comments', on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    def image_for_title(self):
+        image_for_title = Image.objects.filter(post=self, for_title=True).first()
+        return image_for_title
+
+    def get_absolute_url(self):
+        return reverse('core:post_view', args=[self.slug])
+
+
+class Image(models.Model):
+    """ Изображение"""
+    post = models.ForeignKey(CosplayPost, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='likes')
+    rubric = models.ForeignKey(CosplayRubric, related_name='images', on_delete=models.CASCADE)
+    image = ThumbnailerImageField(upload_to=upload_path_image, blank=True, verbose_name='Изображение')
+    for_title = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
-    updated = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('id',)
-        verbose_name = "Комментарий"
-        verbose_name_plural = "Комментарии"
+        verbose_name = "Изображение"
+        verbose_name_plural = "изображения"
 
     def __str__(self):
-        return str(self.text)
+        return str(self.post)
 
+    @property
+    def total_likes(self):
+        return self.likes.count()
 
+    def get_absolute_url(self):
+        return reverse('core:image_view', args=[self.pk])

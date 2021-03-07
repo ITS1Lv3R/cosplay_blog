@@ -1,4 +1,4 @@
 django==3.1.6
 easy-thumbnails==2.7.1
 django-environ==0.4.5
-json
+social-auth-app-django==3.1.0

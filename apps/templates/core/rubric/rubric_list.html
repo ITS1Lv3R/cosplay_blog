@@ -6,10 +6,14 @@
 
 {% block content %}
 <div id="main">
-    <div class="block">
-        {% for rubric in rubrics %}
-           <a href="{% url 'core:collections_by_rubric' rubric.slug %}"> {{ rubric.title }} </a> <br>
-        {% endfor %}
-    </div>
-</div>
+    <p><a href="{% url 'core:index' %}">Главное меню</a><br>
+    <p>Список всех рубрик:</p>
+    {% for rubric in rubrics %}
+        <div class="rubric">
+            <a href="{{ rubric.get_absolute_url }}"> {{ rubric.title }}
+            <img src="{% thumbnail rubric.image_for_title.image 300x300 crop %}"></a></b>
+        </div>
+    {% endfor %}
+ </div>
+{% include "core/pagination.html" with page=page_obj %}
 {% endblock %}

@@ -6,18 +6,22 @@
 
 {% block content %}
 <div id="main">
-    <div class="block">
-        {% for collection in object_list %}
-            {{ collection.description }}<br>
-            <a href="{{ collection.model.get_absolute_url }}">#{{ collection.model }} </a>
-            <a href="{{ collection.rubric.get_absolute_url }}">#{{ collection.rubric }}</a><br>
-            {% for image in collection.images_in_collection %}
-                <a href="{% url 'core:image_view' image.slug %}">
-                <img src="{% thumbnail image.image 150x150 crop %}"></a>
-            {% endfor %}
-        <br>
+    <p><a href="{% url 'core:index' %}">Главное меню</a> / Результаты поиска</p>
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post">
+                <b><a style="color:black" href="{{ post.get_absolute_url }}">{{ post.title }}
+                    <img src="{% thumbnail post.image_for_title.image 300x300 crop %}"></a></b>
+
+                <a href="{{ post.model.get_absolute_url }}">#{{ post.model }} </a>
+                <a href="{{ post.rubric.get_absolute_url }}">#{{ post.rubric }}</a>
+                <br>
+                {{ post.created }} <br>
+            </div>
         {% endfor %}
-    </div>
+    {% else %}
+        <p>По запросу <b>{{ query }}</b> ничего не найдено. Попробуйте еще</p>
+    {% endif %}
 </div>
 
 

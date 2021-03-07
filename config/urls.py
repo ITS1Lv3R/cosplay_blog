@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('apps.account.urls')),
     path('', include('apps.core.urls', namespace='core')),
+    path('', include('social_django.urls')),
 ]
 
 

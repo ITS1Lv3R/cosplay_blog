@@ -10,39 +10,26 @@ class ModelsAdmin(admin.ModelAdmin):
     exclude = ['stars']
 
 
-class ImageInLine(admin.StackedInline):
-    model = Image
-    raw_id_fields = ("collection",)
-    exclude = ['likes']
-
-
-@admin.register(Image_Collection)
-class Image_CollectionAdmin(admin.ModelAdmin):
-    list_display = ['title', 'model', 'description']
-    list_filter = ['model', 'title']
-    prepopulated_fields = {'slug': ('title',)}
-    inlines = [ImageInLine, ]
-
-
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['title', 'collection', 'image', ]
-    list_filter = ['collection', 'title']
-    prepopulated_fields = {'slug': ('title',)}
+    list_display = ['post', 'rubric', 'image',  'for_title']
+    list_filter = ['post']
+    list_editable = ['for_title']
     exclude = ['likes']
 
 
-@admin.register(CosplayBlogPost)
+class ImageInLine(admin.StackedInline):
+    model = Image
+    raw_id_fields = ("post",)
+    exclude = ['likes']
+
+
+@admin.register(CosplayPost)
 class CosplayBlogPostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description']
-    list_filter = ['title']
+    list_display = ['title', 'rubric']
+    list_filter = ['title', 'rubric']
     prepopulated_fields = {'slug': ('title',)}
-
-
-@admin.register(ImageComment)
-class ImageCommentAdmin(admin.ModelAdmin):
-    list_display = ['text', 'created', 'updated']
-    list_filter = ['text']
+    inlines = [ImageInLine, ]
 
 
 @admin.register(CosplayRubric)

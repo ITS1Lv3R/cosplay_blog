@@ -6,7 +6,6 @@
 {% block content %}
 
 <div id="main">
-    <div class="block">
     <p><a href="{% url 'core:index' %}">Сайт</a> / Регистрация</p>
     <h4>Создайте новый аккаунт</h4>
     <p>Пожалуйста, заполните все необходимые поля в форме:</p>
@@ -16,7 +15,5 @@
           <input type="submit" value="Создать аккаунт"></td>
            {% csrf_token %}
      </form>
-    <br><p>Уже есть аккаунт? <a href="{% url 'login' %}"> Войти на сайт</a></p>
-  </div>
 </div>
 {% endblock %}

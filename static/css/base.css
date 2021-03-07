@@ -27,54 +27,58 @@ h1, h2 {
     justify-content: space-between;
     padding:10px 10px 10px 0;
     height:50px;
+    font-size:20px;
+}
+
+#header a {
+    color:grey;
 }
 
 #header .header_logo {
-  position:absolute;
-    font-size:20px;
+    position:absolute;
     top:10px;
     left:20px;
     text-align:left;
+
+}
+#header .header_logo a {
+    color:red;
 }
 
 #header .search {
     position:absolute;
     top:10px;
-    left:150px;
+    left:200px;
+    font-size:17px;
 }
 
 #header .header_main_tabs {
     position:absolute;
-    font-size:20px;
-    left: 31%;
+    left: 36%;
     text-align:left;
 }
 
 #header .header_login {
     position:absolute;
-    font-size:20px;
     top:10px;
-    right:20px;
+    right:3%;
     text-align:right;
 }
 
 #header .block_messages {
     position:absolute;
     font-size:15px;
-    top:10px;
-    right:710px;
+    top:50px;
+    right:50%;
 }
 
-#header a {
-    color:grey;
-}
+
 #header a:hover {
     color:silver;
     cursor: pointer;
     text-decoration:none;
 }
 /* messages */
-
 
 ul.messages {
     width:100%;
@@ -104,7 +108,6 @@ ul.messages li.warning { background:#de9404; }
 ul.messages li.warning a { color:#f49000; }
 
 ul.messages li a.close {
-
     font-size:20px;
     bot:5px;
     right:1px;
@@ -116,20 +119,110 @@ ul.messages li a.close {
 }
 
 #main {
-  position: relative;
-  margin-top:200px;
-}
-.block {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  /* ширина и высота 2 блока */
-  width: 500px;
-  height: 500px;
-  /* Значения определяются в зависимости от его размера */
-  /* margin-left = - width / 2 */
-  margin-left: -250px;
-  /* margin-top = - height / 2 */
-  margin-top: -125px;
+  left: 24%;
+  right:24%;
+  top: 10%;
 }
 
+.post , .rubric{
+    width: 320px;
+	float: left;
+	height:400px;
+    text-align:center;
+}
+.rubric {
+	height:350px;
+}
+
+.image {
+     margin-left:50px;
+     text-align:center;
+     float: left;
+}
+
+.pagination {
+    position: absolute;
+    left: 40%;
+    right:22%;
+    top: 96%;
+}
+
+.donate {
+    position: absolute;
+    right:3%;
+    top: 70%;
+}
+.channels {
+    margin-left:15px;
+    margin-top:40px;
+    width:150px;
+    height:200px;
+    font-size:20px;
+    padding:5px;
+
+}
+.channels-logo {
+    margin-left:20px;
+}
+
+
+.channels a{
+    color:grey;
+}
+
+#slider {
+  position: relative;
+  overflow: hidden;
+  margin: 100px, auto;
+  border-radius: 4px;
+}
+
+#slider ul {
+  position: relative;
+  padding: 0;
+  height: 200px;
+  list-style: none;
+}
+
+#slider ul li {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 500px;
+  height: 700px;
+  text-align: left;
+  line-height: 300px;
+}
+
+a.control_prev, a.control_next {
+  position: absolute;
+  top: 40%;
+  z-index: 999;
+  display: block;
+  padding: 4% 3%;
+  width: auto;
+  height: auto;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+a.control_prev:hover, a.control_next:hover {
+  opacity: 1;
+  -webkit-transition: all 0.2s ease;
+}
+
+a.control_prev {
+  border-radius: 0 2px 2px 0;
+}
+
+a.control_next {
+  right: 0;
+  border-radius: 2px 0 0 2px;
+}

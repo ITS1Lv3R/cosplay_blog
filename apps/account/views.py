@@ -87,6 +87,7 @@ def profile(request):
 
     user = request.user
     liked_images = user.likes.all()
+    liked_models = user.models.all()
 
     context = locals()
     template = 'account/profile.html'
