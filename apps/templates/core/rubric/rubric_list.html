@@ -5,15 +5,23 @@
 {% block title %} Список всех рубрик {% endblock %}
 
 {% block content %}
-<div id="main">
+<div class="main_view">
     <p><a href="{% url 'core:index' %}">Главное меню</a><br>
     <p>Список всех рубрик:</p>
-    {% for rubric in rubrics %}
-        <div class="rubric">
-            <a href="{{ rubric.get_absolute_url }}"> {{ rubric.title }}
-            <img src="{% thumbnail rubric.image_for_title.image 300x300 crop %}"></a></b>
-        </div>
-    {% endfor %}
- </div>
-{% include "core/pagination.html" with page=page_obj %}
+
+    <div class="posts">
+        {% for rubric in rubrics %}
+            <div class="post">
+            <b><a href="{{ rubric.get_absolute_url }}"> {{ rubric.title }}<br>
+                <img src="{% thumbnail rubric.image_for_title.image 300x300 crop %}"></a></b>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {% block pagination %}
+                {% include "core/pagination.html" with page=page_obj %}
+        {% endblock %}
+     </div>
+</div>
 {% endblock %}

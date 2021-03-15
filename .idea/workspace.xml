@@ -36,6 +36,13 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\projects\cosplay_blog\static\css" />
+      <recent name="C:\projects\cosplay_blog\apps\templates" />
+      <recent name="C:\projects\cosplay_blog\static\foto" />
+      <recent name="C:\projects\cosplay_blog\static\js" />
+      <recent name="C:\projects\cosplay_blog\apps\core" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\projects\cosplay_blog\apps\templates\core\post" />
       <recent name="C:\projects\cosplay_blog\apps\templates\core" />
@@ -43,13 +50,34 @@
       <recent name="C:\projects\cosplay\apps\templates\core\models" />
       <recent name="C:\projects\cosplay\apps" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\projects\cosplay_blog\apps\templates" />
-      <recent name="C:\projects\cosplay_blog\static\css" />
-      <recent name="C:\projects\cosplay_blog\static\foto" />
-      <recent name="C:\projects\cosplay_blog\static\js" />
-      <recent name="C:\projects\cosplay_blog\apps\core" />
-    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="views" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="cosplay_blog" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/apps/api" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apps/api/views.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.views" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -77,10 +105,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="718" y="390" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1614705184741" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1615126830758">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1615825083699">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1615126830758" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1615825083699" />
+    <state width="1899" height="244" key="GridCell.Tab.0.bottom" timestamp="1615303632185">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="244" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615303632185" />
+    <state width="1899" height="244" key="GridCell.Tab.0.center" timestamp="1615303632185">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="244" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615303632185" />
+    <state width="1899" height="244" key="GridCell.Tab.0.left" timestamp="1615303632184">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="244" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615303632184" />
+    <state width="1899" height="244" key="GridCell.Tab.0.right" timestamp="1615303632185">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="244" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615303632185" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1615097315590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -89,9 +133,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1614789875218" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1614877187416">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1615823715988">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1614877187416" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615823715988" />
   </component>
 </project>

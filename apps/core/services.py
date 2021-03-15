@@ -1,13 +1,15 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 import json
 from .models import Image, Models
+from config import settings
 
 
-@login_required
-@require_POST
 def like(request):
+
     if request.method == 'POST':
         user = request.user
         pk = request.POST.get('pk', None)
@@ -42,3 +44,5 @@ def stars(request):
     context = {'stars_count': model.total_stars}
 
     return HttpResponse(json.dumps(context), content_type='application/json')
+
+

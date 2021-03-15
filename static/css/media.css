@@ -1,0 +1,221 @@
+
+@media all and (min-width: 1800px) and (max-width: 2500px)  {
+  .content {
+    width:60%;
+  }
+}
+
+@media all and (min-width: 1701px) and (max-width: 1799px)  {
+  .content {
+    width:65%;
+  }
+}
+
+@media all and (min-width: 1500px) and (max-width: 1700px)  {
+  .content {
+    width:70%;
+  }
+}
+
+
+@media all and (min-width: 1300px) and (max-width: 1400px)  {
+  .content {
+    width:85%;
+  }
+}
+
+
+@media all and (min-width: 1200px) and (max-width: 1300px)  {
+
+  .content {
+    width:95%;
+  }
+
+}
+
+@media all and (min-width: 1100px) and (max-width: 1200px)  {
+
+  .content {
+    width:100%;
+  }
+
+}
+
+@media all and (min-width: 1000px) and (max-width: 1099px)  {
+
+  .content {
+    width:70%;
+  }
+
+}
+
+@media all and (min-width: 880px) and (max-width: 999px)  {
+
+  .content {
+    width:80%;
+  }
+
+}
+
+@media all and (min-width: 740px) and (max-width: 879px)  {
+
+  .content {
+    width:95%;
+  }
+
+}
+@media all and (min-width: 700px) and (max-width: 739px)  {
+
+  .content {
+    width:100%;
+  }
+
+}
+
+@media all and (min-width: 600px) and (max-width: 699px)  {
+
+  .content {
+    width:80%;
+  }
+
+}
+
+
+@media all and (min-width: 0px) and (max-width: 830px)  {
+
+  header .logo {
+    width:200px;
+    margin-left:0px;
+}
+
+  header .head_login {
+    position:absolute;
+    top:5px;
+    right:5px;
+  }
+
+.hamburger-menu, .menu__box  {
+    display:block;
+}
+.main_tabs {
+    display:none;
+}
+.search {
+    left:30%;
+    top:10px;
+}
+   #menu__toggle {
+  opacity: 0;
+}
+    /* стилизуем кнопку */
+    .menu__btn {
+      display: flex; /* используем flex для центрирования содержимого */
+      align-items: center;  /* центрируем содержимое кнопки */
+      position: absolute;
+      top: 50px;
+      left: 20px;
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+      z-index: 1;
+    }
+    /* добавляем "гамбургер" */
+    .menu__btn > span,
+    .menu__btn > span::before,
+    .menu__btn > span::after {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: #616161;
+    }
+    .menu__btn > span::before {
+      content: '';
+      top: -8px;
+    }
+    .menu__btn > span::after {
+      content: '';
+      top: 8px;
+    }
+
+    /* контейнер меню */
+    .menu__box {
+      display: block;
+      position: fixed;
+      visibility: hidden;
+      top: 0;
+      left: -100%;
+      width: 300px;
+      height: 100%;
+      margin: 0;
+      padding: 80px 0;
+      list-style: none;
+      text-align: center;
+      background-color: #ECEFF1;
+      box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+    }
+    /* элементы меню */
+    .menu__item {
+      display: block;
+      padding: 12px 24px;
+      color: #333;
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .menu__item:hover {
+      background-color: #CFD8DC;
+    }
+
+    #menu__toggle:checked ~ .menu__btn > span {
+      transform: rotate(45deg);
+    }
+    #menu__toggle:checked ~ .menu__btn > span::before {
+      top: 0;
+      transform: rotate(0);
+    }
+    #menu__toggle:checked ~ .menu__btn > span::after {
+      top: 0;
+      transform: rotate(90deg);
+    }
+    #menu__toggle:checked ~ .menu__box {
+      visibility: visible;
+      left: 0;
+    }
+
+}
+
+@media all and (min-width: 500px) and (max-width: 600px)  {
+
+    .search {
+        left:50%;
+        top:50px;
+    }
+
+}
+
+@media all and (min-width: 0px) and (max-width: 500px)  {
+
+    .search {
+        left:40%;
+        top:50px;
+
+    }
+
+}
+
+@media all and (min-width: 0px) and (max-width: 650px)  {
+
+  .donate{
+    margin-top:5px;
+  }
+}
+
+@media all and (min-width: 0px) and (max-width: 400px)  {
+
+  .content {
+     width:95%;
+  }
+
+}

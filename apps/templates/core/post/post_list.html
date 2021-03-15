@@ -1,0 +1,11 @@
+{% load thumbnail %}
+
+<div class="post">
+    <b><a style="color:black" href="{{ post.get_absolute_url }}">{{ post.title }}<br>
+        <img src="{% thumbnail post.image_for_title.image 300x300 crop %}"></a></b><br>
+
+    <a href="{{ post.model.get_absolute_url }}">#{{ post.model }} </a>
+    <a href="{{ post.rubric.get_absolute_url }}">#{{ post.rubric }}</a>
+    <br>
+    {{ post.created }} <br>
+</div>

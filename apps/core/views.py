@@ -10,7 +10,7 @@ from django.db.models import Q
 
 class IndexView(ListView):
     """ Вью для главной страницы, все посты"""
-    queryset = CosplayPost.objects.all()
+    queryset = CosplayPost.objects.all().order_by('-created')
     template_name = 'core/index.html'
     context_object_name = 'posts'
     paginate_by = 6
@@ -25,7 +25,7 @@ class PostDetailView(DetailView):
 
 class TopPostsListView(ListView):
     """ Список первых 10 постов"""
-    queryset = CosplayPost.objects.filter()[:10]
+    queryset = CosplayPost.objects.filter(recommended=True).order_by('-created')[:10]
     template_name = 'core/post/top_posts_list.html'
     context_object_name = 'posts'
     paginate_by = 6

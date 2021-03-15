@@ -5,19 +5,40 @@
 {% block title %} {{ post.title }} {% endblock %}
 
 {% block content %}
-<div id="main">
+
     <p><a href="{% url 'core:index' %}">Главное меню</a> / <a href="{% url 'core:posts_by_rubric' post.rubric.slug %}">
         {{ post.rubric }} </a> /  {{ post.title }}</p>
 
     {{ post.description }} <br><br>
-    <div class="image">
+
         {% for image in post.images_in_post %}
-            <b><a href="{{ image.get_absolute_url }}">
-                <img src="{% thumbnail image.image 800x1000  crop %}"></a></b>
+               <b><a href="{{ image.get_absolute_url }}">
+                    <img src="{% thumbnail image.image 1000x1200 crop %}"></a></b>
+               <div class="likes" accessKey="{{ image.pk }}">
+                    <input type="button" value="&#10084;" />
+                    <text class="total_likes">{{ image.total_likes }}</text>
+                </div>
         <br><br><br>
         {% endfor %}
-    </div>
-</div>
 
+<script>
+$('.likes').click(function(){
+    this_=$(this)
+      $.ajax({
+           type: "POST",
+           url: "{% url 'core:like' %}",
+           data: {'pk': $(this).attr('accessKey'), 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+           dataType: "json",
+            success: function(response) {
+                total_likes = this_.find('.total_likes')
+                total_likes.text(response.likes_count)
+            },
+            error: function() {
+                window.location.replace("{% url 'login' %}")
+
+            },
+          });
+    })
+</script>
 
 {% endblock %}

@@ -74,11 +74,12 @@ class CosplayPost(models.Model):
     """ Посты в единственный блог"""
     model = models.ForeignKey(Models, related_name='models', on_delete=models.CASCADE)
     rubric = models.ForeignKey(CosplayRubric, related_name='posts', on_delete=models.CASCADE)
-    title = models.CharField('Наименование поста', max_length=70, blank=True,
-                             validators=[MinLengthValidator(45,
-                                                            message='Length has to be a minimum 45')])
+    title = models.CharField('Наименование поста', max_length=60, blank=True,
+                             validators=[MinLengthValidator(40,
+                                                            message='Length has to be a minimum 40')])
     slug = models.SlugField(max_length=200, blank=True)
     description = models.CharField('Описание', max_length=9999, blank=True)
+    recommended = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
 
     class Meta:

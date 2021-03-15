@@ -3,35 +3,40 @@
 {% block title %}Профиль пользователя{% endblock %}
 
 {% block content %}
-<div id="main">
      <p><a href="{% url 'core:index' %}">Главное меню</a> / Личный кабинет</p>
-
-    <p> Привет {{ user.first_name }} !</p>
-    {% if liked_images.count >= 2 %}
-        <h5>Фотографии, которые тебе понравились:</h5>
-        <div id="slider">
-          <a href="#" class="control_next">></a>
-          <a href="#" class="control_prev"><</a>
-          <ul>
-            {% for image in liked_images %}
-                <li><a href="{{ image.get_absolute_url }}">
-                <img src="{% thumbnail image.image 500x700 crop %}"></a></li>
-            {% endfor %}
-          </ul>
+     <div class="profile">
+        <div class="liked_photo">
+             <p> Привет {{ user.first_name }} !</p>
+            {% if liked_images.count >= 2 %}
+                <h5>Фотографии, которые тебе понравились:</h5>
+                <div id="slider">
+                  <a href="#" class="control_next">></a>
+                  <a href="#" class="control_prev"><</a>
+                  <ul>
+                    {% for image in liked_images %}
+                        <li><a href="{{ image.get_absolute_url }}">
+                        <img src="{% thumbnail image.image 500x700 crop %}"></a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+            {% else %}
+                <p> У тебя еще нет любимых фотографий. Лайкни фото, которое тебе понравилось,
+                    чтобы оно всегда отображалось в личном кабинете.<br>
+                    <a href="{% url 'core:index' %}"> Перейти к просмотру фотографий</a>
+                </p>
+            {% endif %}
         </div>
-    {% else %}
-        <p> У тебя еще нет любимых фотографий. Лайкни фото, чтобы в личном кабинете отображались любимые фотографии</p>
-    {% endif %}
-    <br><br>
-    <h5>Вы можете изменить данные профиля:</h5>
-    <form action="." method="post" class="register_form">
-          {{ user_form.as_p }}
-          {% csrf_token %}
-          <p><input type="submit" value="Сохранить изменения"></p>
-    </form>
-    <a href="{% url 'password_change' %}"><input type="submit" value="Сменить пароль"></a>
-</div>
-
+        <div class="profile_info">
+            <h5>Вы можете изменить данные профиля:</h5>
+            <form action="." method="post" class="register_form">
+                  {{ user_form.as_p }}
+                  {% csrf_token %}
+                  <p><input type="submit" value="Сохранить изменения"></p>
+            </form>
+            <a href="{% url 'password_change' %}"><input type="submit" value="Сменить пароль"></a><br><br>
+            <a href="{% url 'logout' %}">Выйти из системы</a>
+        </div>
+     </div>
 <script>
 jQuery(document).ready(function ($) {
 

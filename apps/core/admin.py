@@ -5,7 +5,7 @@ from .models import *
 @admin.register(Models)
 class ModelsAdmin(admin.ModelAdmin):
     list_display = ['name', 'image']
-    list_filter = ['name', ]
+    list_filter = ['name']
     prepopulated_fields = {'slug': ('name',)}
     exclude = ['stars']
 
@@ -25,9 +25,10 @@ class ImageInLine(admin.StackedInline):
 
 
 @admin.register(CosplayPost)
-class CosplayBlogPostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'rubric']
-    list_filter = ['title', 'rubric']
+class CosplayPostAdmin(admin.ModelAdmin):
+    list_display = ['title', 'rubric', 'recommended']
+    list_filter = ['title', 'rubric', 'recommended']
+    list_editable = ['recommended']
     prepopulated_fields = {'slug': ('title',)}
     inlines = [ImageInLine, ]
 

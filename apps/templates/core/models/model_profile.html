@@ -5,7 +5,7 @@
 {% block title %} {{ model.name }}{% endblock %}
 
 {% block content %}
-<div id="main">
+
     <p><a href="{% url 'core:index' %}">Главное меню</a> / <a href="{% url 'core:models_list' %}">
         Список моделей </a> / {{ model.name }}</p>
     <p> {{ model.name }} </p>
@@ -15,17 +15,9 @@
     <text id="total_stars">{{ model.total_stars}}</text><br><br>
 
     {% for post in model.posts_by_model %}
-        <div class="post">
-            <b><a style="color:black" href="{{ post.get_absolute_url }}">{{ post.title }}
-                <img src="{% thumbnail post.image_for_title.image 300x300 crop %}"></a></b>
-
-            <a href="{{ post.model.get_absolute_url }}">#{{ post.model }} </a>
-            <a href="{{ post.rubric.get_absolute_url }}">#{{ post.rubric }}</a>
-            <br>
-            {{ post.created }} <br>
-        </div>
+        {% include "core/post/post_list.html" %}
     {% endfor %}
-</div>
+
 
 <script>
 $('#stars').click(function(){
@@ -36,6 +28,9 @@ $('#stars').click(function(){
            dataType: "json",
             success: function(response) {
               document.getElementById("total_stars").innerHTML = response.stars_count;
+            },
+            error: function() {
+                window.location.replace("{% url 'login' %}")
             },
           });
     })

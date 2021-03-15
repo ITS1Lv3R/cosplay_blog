@@ -11,25 +11,21 @@ from django.contrib.auth import logout
 def user_login(request):
     """Функция для авторизации юзера"""
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():  # Проверяем форму на валидность
-            cd = form.cleaned_data
-            user = authenticate(request,
-                                email=cd['email'],
-                                password=cd['password'])
-            if user:  # Проверяем есть ли юзер в бд
-                if user.is_active:  # Проверяем активен ли юзер
-                    login(request, user)
-                    messages.success(request, 'Вы успешно авторизовались на сайте!')
-                    return redirect('core:index')  # Если всё ок, отправляем юзера на главную страницу
-                else:
-                    messages.error(request, 'Аккаунт неактивен!')
-                    return redirect('login')
+        user = authenticate(request,
+                            email=request.POST.get('email'),
+                            password=request.POST.get('password'))
+        if user:  # Проверяем есть ли юзер в бд
+            if user.is_active:  # Проверяем активен ли юзер
+                login(request, user)
+                messages.success(request, 'Вы успешно авторизовались на сайте!')
+                return redirect('core:index')  # Если всё ок, отправляем юзера на главную страницу
             else:
-                messages.error(request, 'Неверные логин или пароль')
-                redirect('login')
-    else:
-        form = LoginForm()
+                messages.error(request, 'Аккаунт неактивен!')
+                return redirect('login')
+        else:
+            messages.error(request, 'Неверные логин или пароль')
+            redirect('login')
+
     context = locals()
     template = 'account/login.html'
     return render(request, template, context)

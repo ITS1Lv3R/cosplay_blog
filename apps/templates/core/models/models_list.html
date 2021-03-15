@@ -5,15 +5,23 @@
 {% block title %} Список моделей{% endblock %}
 
 {% block content %}
-<div id="main">
+<div class="main_view">
     <p><a href="{% url 'core:index' %}">Главное меню</a><br>
     <p>Список всех моделей:</p>
-    {% for model in models %}
-        <div class="rubric">
-            <a href="{{ model.get_absolute_url }}"> {{ model.name }}
-            <img src="{% thumbnail model.image 300x300 crop %}"></a></b>
-        </div>
-    {% endfor %}
+
+        <div class="posts">
+            {% for model in models %}
+                <div class="post">
+                    <b><a href="{{ model.get_absolute_url }}"> {{ model.name }}<br>
+                        <img src="{% thumbnail model.image 300x300 crop %}"></a></b>
+                </div>
+            {% endfor %}
+         </div>
+
+    <div class="pagination">
+        {% block pagination %}
+                {% include "core/pagination.html" with page=page_obj %}
+        {% endblock %}
+     </div>
 </div>
-{% include "core/pagination.html" with page=page_obj %}
 {% endblock %}
