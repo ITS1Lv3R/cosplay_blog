@@ -12,7 +12,7 @@ class ModelsAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ['post', 'rubric', 'image',  'for_title']
+    list_display = ['post', 'image',  'for_title']
     list_filter = ['post']
     list_editable = ['for_title']
     exclude = ['likes']

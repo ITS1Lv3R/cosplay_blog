@@ -10,7 +10,7 @@ from django.core.validators import RegexValidator, MinLengthValidator
 
 
 def upload_path_image(instance, filename):
-    return 'images/{0}/{1}/{2}'.format(instance.post.model, instance.rubric, filename)
+    return 'images/{0}/{1}/{2}'.format(instance.post.model, instance.post.rubric, filename)
 
 
 def upload_path_model_photo(instance, filename):
@@ -66,7 +66,12 @@ class CosplayRubric(models.Model):
         return posts
 
     def image_for_title(self):
-        image_for_title = Image.objects.filter(rubric=self, for_title=True).first()
+        try:
+            post = CosplayPost.objects.filter(rubric=self).first()
+            image_for_title = post.image_for_title()
+        except:
+            image_for_title = 'static/img/vk.png'
+
         return image_for_title
 
 
@@ -106,7 +111,7 @@ class Image(models.Model):
     """ Изображение"""
     post = models.ForeignKey(CosplayPost, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='likes')
-    rubric = models.ForeignKey(CosplayRubric, related_name='images', on_delete=models.CASCADE)
+
     image = ThumbnailerImageField(upload_to=upload_path_image, blank=True, verbose_name='Изображение')
     for_title = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
