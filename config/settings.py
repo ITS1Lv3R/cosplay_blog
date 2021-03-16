@@ -68,23 +68,17 @@ AUTHENTICATION_BACKENDS = (
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.environ.get('MYSQL_ENGINE'),
+        'NAME': os.environ.get('MYSQL_DB'),
+        'USER': os.environ.get('MYSQL_USER'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
+        'HOST': os.environ.get('MYSQL_HOST'),
+        'PORT': os.environ.get('MYSQL_PORT'),
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': os.environ.get('MYSQL_ENGINE'),
-#         'NAME': os.environ.get('MYSQL_DB'),
-#         'USER': os.environ.get('MYSQL_USER'),
-#         'PASSWORD': os.environ.get('MYSQL_PASSWORD'),
-#         'HOST': os.environ.get('MYSQL_HOST'),
-#         'PORT': os.environ.get('MYSQL_PORT'),
-#     }
-# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
