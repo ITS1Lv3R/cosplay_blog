@@ -17,5 +17,5 @@ urlpatterns = [
     path('top_posts_list/', views.TopPostsListView.as_view(), name='top_posts_list'),
     path('posts/<slug:slug>/', views.PostDetailView.as_view(), name='post_view'),
     path('search/', views.search, name='search'),
-
+    path('admin_upload_images/<int:pk>', services.admin_upload_image, name='admin_upload_images'),
 ]

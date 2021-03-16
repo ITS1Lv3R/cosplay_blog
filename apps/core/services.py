@@ -1,15 +1,19 @@
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.core.files.base import ContentFile
+from django.shortcuts import redirect, render
+from django.urls.base import reverse
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 import json
-from .models import Image, Models
-from config import settings
+
+from .forms import ImageUploadForm
+from .models import Image, Models, CosplayPost
+from config.settings import ALLOWED_HOSTS
 
 
 def like(request):
-
     if request.method == 'POST':
         user = request.user
         pk = request.POST.get('pk', None)
@@ -28,9 +32,8 @@ def like(request):
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
-@login_required
-@require_POST
 def stars(request):
+    """ функция для подсчета звед у моделей"""
     if request.method == 'POST':
         user = request.user
         slug = request.POST.get('slug', None)
@@ -46,3 +49,22 @@ def stars(request):
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
+@staff_member_required
+def admin_upload_image(request, pk):
+    """ Форма загрузки нескольких изображений на сайт"""
+    post = CosplayPost.objects.get(id=pk)
+    if request.method == 'POST':
+        # перебираем все файлы, загруженные из формы
+        for file in request.FILES.getlist('images'):
+            # первому файлу ставим признак for_title
+            if file == request.FILES.getlist('images')[0]:
+                instance = Image(post=post, image=file, for_title=True)
+            else:
+                instance = Image(post=post, image=file)
+            instance.save()
+
+        messages.success(request, 'Изображения успешно загружены')
+        return redirect('admin:index')
+
+    context = locals()
+    return render(request, 'core/admin/post/upload_image.html', context)

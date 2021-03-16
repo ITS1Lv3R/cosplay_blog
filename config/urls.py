@@ -12,12 +12,9 @@ urlpatterns = [
     path('', include('social_django.urls')),
 ]
 
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
-
-
 
 handler400 = 'apps.core.views.page_not_found'
 handler403 = 'apps.core.views.page_not_found'

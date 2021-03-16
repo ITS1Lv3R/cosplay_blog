@@ -6,7 +6,7 @@
 
 {% block content %}
     <p><a href="{% url 'core:index' %}">Главное меню</a> /
-        <a href="{% url 'core:posts_by_rubric' image.rubric.slug %}" >{{ image.rubric }}</a> /
+        <a href="{% url 'core:posts_by_rubric' image.post.rubric.slug %}" >{{ image.rubric }}</a> /
         <a href="{% url 'core:post_view' image.post.slug %}">{{ image.post }}</a> /
         Фото </p>
     <img src="{% thumbnail image.image 1000x1200 crop %}"><br>

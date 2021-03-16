@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+
+{% block title %} upload images {% endblock %}
+
+{% block content %}
+<form action="{% url 'core:admin_upload_images' pk %}" method="post" enctype="multipart/form-data">
+      <input type="file" name="images" multiple><br>
+      <input type="submit" value="Загрузить изображения">
+      {% csrf_token %}
+</form>
+
+{% endblock %}
