@@ -254,3 +254,8 @@ ul.messages li a.close {
 .hamburger-menu, .menu__box  {
     display:none;
 }
+
+.social img{
+    margin-left:10px;
+
+}

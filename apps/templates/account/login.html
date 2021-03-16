@@ -24,11 +24,16 @@
 
     <div class="social">
         Войдите через социальные сети<br>
+
+        <a href="{% url 'social:begin' 'google-oauth2' %}">
+            <img src="{% static 'img/lgoogle.png' %}"></a>
+
         <a class="vk" href="/login/vk-oauth2">
              <img src="{% static 'img/vk.png' %}"></a>
 
         <a class="fb" href="{% url 'social:begin' 'facebook' %}">
               <img src="{% static 'img/facebook.png' %}"></a>
+
     </div>
 
 {% endblock %}
