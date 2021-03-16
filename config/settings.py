@@ -63,6 +63,7 @@ TEMPLATES = [
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',  # бекенд авторизации через ВКонтакте
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',  # бекенд классической аутентификации
 )
@@ -74,8 +75,8 @@ if DEBUG:
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-           }
-         }
+        }
+    }
 else:
     DATABASES = {
         'default': {
@@ -130,14 +131,20 @@ SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
 
 SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
 SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id,name,email',
+}
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
-SOCIAL_AUTH_PIPELINE = (
-    'social_core.pipeline.social_auth.associate_by_email',
-)
-
+SOCIAL_AUTH_INSTAGRAM_KEY = env('SOCIAL_AUTH_INSTAGRAM_KEY')
+SOCIAL_AUTH_INSTAGRAM_SECRET = env('SOCIAL_AUTH_INSTAGRAM_SECRET')
+SOCIAL_AUTH_INSTAGRAM_SCOPE = ['email']
+SOCIAL_AUTH_INSTAGRAM_EXTRA_DATA = [('user', 'user')]
 # login
 LOGIN_REDIRECT_URL = 'core:index'
 LOGIN_URL = 'login'

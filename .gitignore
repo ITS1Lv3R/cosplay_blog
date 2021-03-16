@@ -1,5 +1,4 @@
 media
 .env
 db.sqlite3
-config
 passenger_wsgi.py
