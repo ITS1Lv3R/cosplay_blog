@@ -64,7 +64,6 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',  # бекенд авторизации через ВКонтакте
     'social_core.backends.facebook.FacebookOAuth2',
     'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.instagram.InstagramOAuth2',
     'django.contrib.auth.backends.ModelBackend',  # бекенд классической аутентификации
 )
 
@@ -141,8 +140,6 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
-SOCIAL_AUTH_INSTAGRAM_KEY = env('SOCIAL_AUTH_INSTAGRAM_KEY')
-SOCIAL_AUTH_INSTAGRAM_SECRET = env('SOCIAL_AUTH_INSTAGRAM_SECRET')
 
 # login
 LOGIN_REDIRECT_URL = 'core:index'
