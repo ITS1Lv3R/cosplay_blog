@@ -224,7 +224,7 @@
         margin-bottom:10px;
     }
     .pagination {
-        margin-left:10%;
+        margin-left:7%;
     }
     .messages {
         margin-right:30px;
@@ -255,7 +255,9 @@
 
 }
 
-@media all and (min-width: 420px) and (max-width: 475px)  {
+
+
+@media all and (min-width: 410px) and (max-width: 475px)  {
 
   .content {
      width:85%;
@@ -278,13 +280,7 @@
   }
 
 }
-@media all and (min-width: 0px) and (max-width: 400px)  {
 
-  .content {
-     width:95%;
-  }
-
-}
 
 @media all and (min-width: 0px) and (max-width: 320px)  {
 
@@ -293,6 +289,14 @@
   }
     .head_login {
         margin-right:-40px;
+  }
+
+}
+
+@media all and (min-width: 320px) and (max-width: 409px)  {
+
+  .content {
+     width:90%;
   }
 
 }
