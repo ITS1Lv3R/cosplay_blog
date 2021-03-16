@@ -30,7 +30,7 @@ header {
 .content {
     width:80%;
     margin: 0 auto;
-    min-height:700px;
+    min-height:600px;
 
 }
 
@@ -52,6 +52,7 @@ header {
     position:absolute;
     left:2%;
     top:50px;
+
 }
 
 .main_tabs {
@@ -62,9 +63,9 @@ header {
 
 .head_login {
     position:absolute;
-    right:0px;
+    right:10px;
     top:10px;
-    width:170px;
+    width:160px;
     text-align:left;
 }
 
@@ -114,7 +115,7 @@ header {
 }
 
 .pagination {
-    width:250px;
+    width:300px;
     text-align:left;
 }
 footer {
@@ -132,7 +133,6 @@ footer a{
    height:100px;
    width:200px;
    font-size:20px;
-
 }
 .channels-logo {
    display: flex;
@@ -149,10 +149,10 @@ footer a{
 }
 
 .login_form {
-    width:280px;
+    width:300px;
 }
 .login_form #email {
-    margin-left:19px;
+    margin-left:20px;
 }
 
 #slider {
@@ -189,10 +189,10 @@ a.control_prev, a.control_next {
   padding: 4% 3%;
   width: auto;
   height: auto;
-  color: #fff;
+  color: white;
   text-decoration: none;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 25px;
   opacity: 0.8;
   cursor: pointer;
 }
@@ -221,7 +221,7 @@ ul.messages li.warning,
 ul.messages li.error,
 ul.messages li.info {
     height:30px;
-    width:475px;
+    width:300px;
     padding: 4px;
     list-style:none;
     color:#fff;
