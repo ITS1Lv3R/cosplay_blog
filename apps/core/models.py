@@ -111,7 +111,6 @@ class Image(models.Model):
     """ Изображение"""
     post = models.ForeignKey(CosplayPost, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='likes')
-
     image = ThumbnailerImageField(upload_to=upload_path_image, blank=True, verbose_name='Изображение')
     for_title = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, verbose_name='Создан')

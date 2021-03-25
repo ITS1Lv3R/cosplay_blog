@@ -25,6 +25,7 @@ class ImageAdmin(admin.ModelAdmin):
     exclude = ['likes']
 
 
+
 class ImageInLine(admin.StackedInline):
     model = Image
     raw_id_fields = ("post",)
